@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM解説スライド</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- スライド1: タイトル -->
+        <section class="slide active" data-slide="1">
+            <div class="slide-content title-slide">
+                <h1><i class="fas fa-robot"></i> LLM (Large Language Model)</h1>
+                <h2>大規模言語モデルの基礎から応用まで</h2>
+                <div class="slide-number">1 / 8</div>
+            </div>
+        </section>
+
+        <!-- スライド2: LLMとは -->
+        <section class="slide" data-slide="2">
+            <div class="slide-content">
+                <h1><i class="fas fa-question-circle"></i> LLMとは何か？</h1>
+                <div class="content-grid">
+                    <div class="text-content">
+                        <ul class="feature-list">
+                            <li><i class="fas fa-brain"></i> 大量のテキストデータで訓練された深層学習モデル</li>
+                            <li><i class="fas fa-language"></i> 自然言語の理解と生成が可能</li>
+                            <li><i class="fas fa-cogs"></i> トランスフォーマーアーキテクチャを基盤</li>
+                            <li><i class="fas fa-chart-line"></i> 数十億〜数兆のパラメータを持つ</li>
+                        </ul>
+                    </div>
+                    <div class="visual-content">
+                        <div class="llm-diagram">
+                            <div class="input-box">テキスト入力</div>
+                            <div class="arrow">↓</div>
+                            <div class="model-box">LLMモデル</div>
+                            <div class="arrow">↓</div>
+                            <div class="output-box">テキスト出力</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-number">2 / 8</div>
+            </div>
+        </section>
+
+        <!-- スライド3: LLMの仕組み -->
+        <section class="slide" data-slide="3">
+            <div class="slide-content">
+                <h1><i class="fas fa-cogs"></i> LLMの仕組み</h1>
+                <div class="architecture-diagram">
+                    <div class="layer transformer-layer">
+                        <h3>トランスフォーマー層</h3>
+                        <div class="attention-mechanism">
+                            <i class="fas fa-eye"></i> アテンション機構
+                        </div>
+                    </div>
+                    <div class="layer embedding-layer">
+                        <h3>埋め込み層</h3>
+                        <div class="tokens">
+                            <span class="token">Hello</span>
+                            <span class="token">World</span>
+                            <span class="token">!</span>
+                        </div>
+                    </div>
+                    <div class="process-flow">
+                        <div class="step">
+                            <i class="fas fa-text-width"></i>
+                            <p>トークン化</p>
+                        </div>
+                        <div class="arrow-right">→</div>
+                        <div class="step">
+                            <i class="fas fa-vector-square"></i>
+                            <p>ベクトル化</p>
+                        </div>
+                        <div class="arrow-right">→</div>
+                        <div class="step">
+                            <i class="fas fa-brain"></i>
+                            <p>予測</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-number">3 / 8</div>
+            </div>
+        </section>
+
+        <!-- スライド4: LLMの種類 -->
+        <section class="slide" data-slide="4">
+            <div class="slide-content">
+                <h1><i class="fas fa-sitemap"></i> LLMの種類</h1>
+                <div class="models-grid">
+                    <div class="model-card gpt">
+                        <i class="fas fa-comments"></i>
+                        <h3>GPTシリーズ</h3>
+                        <p>OpenAI開発<br>対話・文章生成に特化</p>
+                    </div>
+                    <div class="model-card bert">
+                        <i class="fas fa-search"></i>
+                        <h3>BERT</h3>
+                        <p>Google開発<br>文章理解に特化</p>
+                    </div>
+                    <div class="model-card t5">
+                        <i class="fas fa-exchange-alt"></i>
+                        <h3>T5</h3>
+                        <p>Google開発<br>Text-to-Text変換</p>
+                    </div>
+                    <div class="model-card claude">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Claude</h3>
+                        <p>Anthropic開発<br>安全性重視</p>
+                    </div>
+                </div>
+                <div class="slide-number">4 / 8</div>
+            </div>
+        </section>
+
+        <!-- スライド5: 学習プロセス -->
+        <section class="slide" data-slide="5">
+            <div class="slide-content">
+                <h1><i class="fas fa-graduation-cap"></i> LLMの学習プロセス</h1>
+                <div class="training-process">
+                    <div class="phase pretraining">
+                        <i class="fas fa-database"></i>
+                        <h3>事前学習</h3>
+                        <p>大量のテキストデータ<br>（インターネット、書籍など）</p>
+                    </div>
+                    <div class="arrow-down">↓</div>
+                    <div class="phase fine-tuning">
+                        <i class="fas fa-adjust"></i>
+                        <h3>ファインチューニング</h3>
+                        <p>特定のタスクに<br>特化した調整</p>
+                    </div>
+                    <div class="arrow-down">↓</div>
+                    <div class="phase rlhf">
+                        <i class="fas fa-user-check"></i>
+                        <h3>RLHF</h3>
+                        <p>人間のフィードバックによる<br>強化学習</p>
+                    </div>
+                </div>
+                <div class="slide-number">5 / 8</div>
+            </div>
+        </section>
+
+        <!-- スライド6: 応用例 -->
+        <section class="slide" data-slide="6">
+            <div class="slide-content">
+                <h1><i class="fas fa-rocket"></i> LLMの応用例</h1>
+                <div class="applications-grid">
+                    <div class="app-item">
+                        <i class="fas fa-edit"></i>
+                        <h3>文章生成</h3>
+                        <p>記事、小説、レポート作成</p>
+                    </div>
+                    <div class="app-item">
+                        <i class="fas fa-language"></i>
+                        <h3>翻訳</h3>
+                        <p>多言語間の自動翻訳</p>
+                    </div>
+                    <div class="app-item">
+                        <i class="fas fa-code"></i>
+                        <h3>プログラミング</h3>
+                        <p>コード生成・デバッグ支援</p>
+                    </div>
+                    <div class="app-item">
+                        <i class="fas fa-question"></i>
+                        <h3>質問応答</h3>
+                        <p>チャットボット・FAQ</p>
+                    </div>
+                    <div class="app-item">
+                        <i class="fas fa-book"></i>
+                        <h3>要約</h3>
+                        <p>長文の要約・抽出</p>
+                    </div>
+                    <div class="app-item">
+                        <i class="fas fa-heart"></i>
+                        <h3>感情分析</h3>
+                        <p>テキストの感情判定</p>
+                    </div>
+                </div>
+                <div class="slide-number">6 / 8</div>
+            </div>
+        </section>
+
+        <!-- スライド7: 課題と限界 -->
+        <section class="slide" data-slide="7">
+            <div class="slide-content">
+                <h1><i class="fas fa-exclamation-triangle"></i> 課題と限界</h1>
+                <div class="challenges-grid">
+                    <div class="challenge-item">
+                        <i class="fas fa-times-circle"></i>
+                        <h3>ハルシネーション</h3>
+                        <p>事実と異なる情報の生成</p>
+                    </div>
+                    <div class="challenge-item">
+                        <i class="fas fa-user-slash"></i>
+                        <h3>バイアス</h3>
+                        <p>学習データに含まれる偏見</p>
+                    </div>
+                    <div class="challenge-item">
+                        <i class="fas fa-bolt"></i>
+                        <h3>計算コスト</h3>
+                        <p>大量の計算資源が必要</p>
+                    </div>
+                    <div class="challenge-item">
+                        <i class="fas fa-clock"></i>
+                        <h3>知識の鮮度</h3>
+                        <p>学習時点以降の情報不足</p>
+                    </div>
+                </div>
+                <div class="solution-box">
+                    <h3><i class="fas fa-lightbulb"></i> 解決への取り組み</h3>
+                    <ul>
+                        <li>RAG（Retrieval-Augmented Generation）</li>
+                        <li>ファクトチェック機構の導入</li>
+                        <li>効率的なモデルアーキテクチャの開発</li>
+                    </ul>
+                </div>
+                <div class="slide-number">7 / 8</div>
+            </div>
+        </section>
+
+        <!-- スライド8: 未来と展望 -->
+        <section class="slide" data-slide="8">
+            <div class="slide-content">
+                <h1><i class="fas fa-telescope"></i> LLMの未来と展望</h1>
+                <div class="future-timeline">
+                    <div class="timeline-item">
+                        <div class="year">現在</div>
+                        <div class="milestone">
+                            <i class="fas fa-comments"></i>
+                            <p>対話型AI・コード生成</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="year">近未来</div>
+                        <div class="milestone">
+                            <i class="fas fa-robot"></i>
+                            <p>マルチモーダルAI<br>（テキスト+画像+音声）</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="year">将来</div>
+                        <div class="milestone">
+                            <i class="fas fa-brain"></i>
+                            <p>AGI（汎用人工知能）<br>への発展</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="conclusion">
+                    <h3><i class="fas fa-star"></i> まとめ</h3>
+                    <p>LLMは言語処理の革命をもたらし、<br>さまざまな分野での活用が期待される技術です</p>
+                </div>
+                <div class="slide-number">8 / 8</div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ナビゲーション -->
+    <div class="navigation">
+        <button id="prevBtn" class="nav-btn"><i class="fas fa-chevron-left"></i> 前へ</button>
+        <button id="nextBtn" class="nav-btn">次へ <i class="fas fa-chevron-right"></i></button>
+        <button id="exportBtn" class="export-btn"><i class="fas fa-download"></i> PPTX出力</button>
+    </div>
+
+    <!-- プログレスバー -->
+    <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+    </div>
+
+    <script src="https://unpkg.com/pptxgenjs@4.0.0/dist/pptxgen.bundle.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
