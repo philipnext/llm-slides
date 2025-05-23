@@ -77,14 +77,14 @@ class SlidePresentation {
 			this.exportBtn.disabled = true;
 
 			// PptxGenJSを使用してプレゼンテーションを作成
-			const pres = new PptxGenJS();
+			const pptx = new PptxGenJS();
 
 			// スライドマスターの設定
-			pres.layout = "LAYOUT_16x9";
+			pptx.layout = "LAYOUT_16x9";
 
 			// タイトルスライド
-			const slide1 = pres.addSlide();
-			slide1.background = { fill: { color: "F093FB" } };
+			const slide1 = pptx.addSlide();
+			slide1.background = { fill: "F093FB" };
 			slide1.addText("LLM (Large Language Model)", {
 				x: 0.5,
 				y: 2,
@@ -106,7 +106,7 @@ class SlidePresentation {
 			});
 
 			// スライド2: LLMとは
-			const slide2 = pres.addSlide();
+			const slide2 = pptx.addSlide();
 			slide2.addText("LLMとは何か？", {
 				x: 0.5,
 				y: 0.5,
@@ -137,7 +137,7 @@ class SlidePresentation {
 			});
 
 			// スライド3: LLMの仕組み
-			const slide3 = pres.addSlide();
+			const slide3 = pptx.addSlide();
 			slide3.addText("LLMの仕組み", {
 				x: 0.5,
 				y: 0.5,
@@ -150,12 +150,12 @@ class SlidePresentation {
 			});
 
 			// トランスフォーマー層
-			slide3.addShape(pres.ShapeType.rect, {
+			slide3.addShape(pptx.ShapeType.rect, {
 				x: 2,
 				y: 2,
 				w: 8,
 				h: 1.5,
-				fill: { color: "FF9A9E" },
+				fill: "FF9A9E",
 				line: { color: "FF6B9D", width: 2 },
 			});
 			slide3.addText("トランスフォーマー層\nアテンション機構", {
@@ -170,12 +170,12 @@ class SlidePresentation {
 			});
 
 			// 埋め込み層
-			slide3.addShape(pres.ShapeType.rect, {
+			slide3.addShape(pptx.ShapeType.rect, {
 				x: 2,
 				y: 4,
 				w: 8,
 				h: 1.5,
-				fill: { color: "A8EDEA" },
+				fill: "A8EDEA",
 				line: { color: "00D2FF", width: 2 },
 			});
 			slide3.addText("埋め込み層\nトークン化・ベクトル化", {
@@ -190,7 +190,7 @@ class SlidePresentation {
 			});
 
 			// スライド4: LLMの種類
-			const slide4 = pres.addSlide();
+			const slide4 = pptx.addSlide();
 			slide4.addText("LLMの種類", {
 				x: 0.5,
 				y: 0.5,
@@ -217,12 +217,12 @@ class SlidePresentation {
 				const x = (index % 2) * 6 + 1;
 				const y = Math.floor(index / 2) * 2.5 + 2;
 
-				slide4.addShape(pres.ShapeType.rect, {
+				slide4.addShape(pptx.ShapeType.rect, {
 					x: x,
 					y: y,
 					w: 4.5,
 					h: 2,
-					fill: { color: "FFFFFF" },
+					fill: "FFFFFF",
 					line: { color: model.color, width: 3 },
 				});
 				slide4.addText(model.name, {
@@ -247,7 +247,7 @@ class SlidePresentation {
 			});
 
 			// スライド5: 学習プロセス
-			const slide5 = pres.addSlide();
+			const slide5 = pptx.addSlide();
 			slide5.addText("LLMの学習プロセス", {
 				x: 0.5,
 				y: 0.5,
@@ -280,12 +280,12 @@ class SlidePresentation {
 			phases.forEach((phase, index) => {
 				const y = index * 2 + 2;
 
-				slide5.addShape(pres.ShapeType.rect, {
+				slide5.addShape(pptx.ShapeType.rect, {
 					x: 3,
 					y: y,
 					w: 6,
 					h: 1.5,
-					fill: { color: phase.color },
+					fill: phase.color,
 					line: { color: phase.color, width: 2 },
 				});
 				slide5.addText(phase.name, {
@@ -322,7 +322,7 @@ class SlidePresentation {
 			});
 
 			// スライド6: 応用例
-			const slide6 = pres.addSlide();
+			const slide6 = pptx.addSlide();
 			slide6.addText("LLMの応用例", {
 				x: 0.5,
 				y: 0.5,
@@ -347,12 +347,12 @@ class SlidePresentation {
 				const x = (index % 3) * 4 + 0.5;
 				const y = Math.floor(index / 3) * 2 + 2;
 
-				slide6.addShape(pres.ShapeType.rect, {
+				slide6.addShape(pptx.ShapeType.rect, {
 					x: x,
 					y: y,
 					w: 3.5,
 					h: 1.5,
-					fill: { color: "F8F9FA" },
+					fill: "F8F9FA",
 					line: { color: "E9ECEF", width: 2 },
 				});
 				slide6.addText(app.name, {
@@ -377,7 +377,7 @@ class SlidePresentation {
 			});
 
 			// スライド7: 課題と限界
-			const slide7 = pres.addSlide();
+			const slide7 = pptx.addSlide();
 			slide7.addText("課題と限界", {
 				x: 0.5,
 				y: 0.5,
@@ -400,12 +400,12 @@ class SlidePresentation {
 				const x = (index % 2) * 6 + 1;
 				const y = Math.floor(index / 2) * 1.5 + 2;
 
-				slide7.addShape(pres.ShapeType.rect, {
+				slide7.addShape(pptx.ShapeType.rect, {
 					x: x,
 					y: y,
 					w: 4.5,
 					h: 1.2,
-					fill: { color: "FFF5F5" },
+					fill: "FFF5F5",
 					line: { color: "FEB2B2", width: 2 },
 				});
 				slide7.addText(challenge.name, {
@@ -430,12 +430,12 @@ class SlidePresentation {
 			});
 
 			// 解決への取り組み
-			slide7.addShape(pres.ShapeType.rect, {
+			slide7.addShape(pptx.ShapeType.rect, {
 				x: 1,
 				y: 5.5,
 				w: 10,
 				h: 1.5,
-				fill: { color: "F0FFF4" },
+				fill: "F0FFF4",
 				line: { color: "9AE6B4", width: 2 },
 			});
 			slide7.addText("解決への取り組み", {
@@ -461,7 +461,7 @@ class SlidePresentation {
 			);
 
 			// スライド8: 未来と展望
-			const slide8 = pres.addSlide();
+			const slide8 = pptx.addSlide();
 			slide8.addText("LLMの未来と展望", {
 				x: 0.5,
 				y: 0.5,
@@ -486,12 +486,12 @@ class SlidePresentation {
 				const x = index * 4 + 1;
 
 				// 年代の円
-				slide8.addShape(pres.ShapeType.ellipse, {
+				slide8.addShape(pptx.ShapeType.ellipse, {
 					x: x + 1.25,
 					y: 2,
 					w: 1.5,
 					h: 1.5,
-					fill: { color: "3498DB" },
+					fill: "3498DB",
 					line: { color: "3498DB", width: 2 },
 				});
 				slide8.addText(item.period, {
@@ -507,12 +507,12 @@ class SlidePresentation {
 				});
 
 				// マイルストーン
-				slide8.addShape(pres.ShapeType.rect, {
+				slide8.addShape(pptx.ShapeType.rect, {
 					x: x,
 					y: 4,
 					w: 4,
 					h: 1.5,
-					fill: { color: "F8F9FA" },
+					fill: "F8F9FA",
 					line: { color: "E9ECEF", width: 2 },
 				});
 				slide8.addText(item.milestone, {
@@ -528,12 +528,12 @@ class SlidePresentation {
 			});
 
 			// まとめ
-			slide8.addShape(pres.ShapeType.rect, {
+			slide8.addShape(pptx.ShapeType.rect, {
 				x: 1,
 				y: 6.5,
 				w: 10,
 				h: 1.5,
-				fill: { color: "667EEA" },
+				fill: "667EEA",
 				line: { color: "667EEA", width: 2 },
 			});
 			slide8.addText("まとめ", {
@@ -561,7 +561,7 @@ class SlidePresentation {
 			);
 
 			// ファイルを保存
-			await pres.writeFile({ fileName: "LLM解説スライド.pptx" });
+			await pptx.writeFile({ fileName: "LLM解説スライド.pptx" });
 
 			this.exportBtn.innerHTML = '<i class="fas fa-check"></i> 完了!';
 			setTimeout(() => {
