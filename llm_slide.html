@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM生成スライド</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column; /* Added for vertical layout */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 100%;
+            height: calc(100vh - 150px); /* Adjusted height to make space for input */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px; /* Space below slide container */
+        }
+        .slide {
+            width: 90%;
+            max-width: 1200px;
+            height: 80%;
+            max-height: 675px; /* 16:9 aspect ratio for 1200px width */
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            box-sizing: border-box;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+        }
+        .slide.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        h1 {
+            color: #333;
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #666;
+            font-size: 1.5em;
+            line-height: 1.6;
+        }
+        .navigation-buttons {
+            position: absolute;
+            bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .navigation-buttons button:hover {
+            background-color: #0056b3;
+        }
+        #download-ppt-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        #download-ppt-button:hover {
+            background-color: #218838;
+        }
+        .input-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 1200px;
+            margin-top: 20px;
+        }
+        #prompt-input {
+            width: 100%;
+            height: 80px;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        #generate-slide-button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            background-color: #6f42c1; /* A nice purple */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        #generate-slide-button:hover {
+            background-color: #5a35a1;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="slide active" data-slide-number="1">
+            <h1>LLM生成スライドへようこそ</h1>
+            <p>これはLLMによって生成されたスライドのデモンストレーションです。</p>
+        </div>
+        <div class="slide" data-slide-number="2">
+            <h1>スライド2のタイトル</h1>
+            <p>ここにスライド2のコンテンツが入ります。</p>
+            <ul>
+                <li>ポイント1</li>
+                <li>ポイント2</li>
+                <li>ポイント3</li>
+            </ul>
+        </div>
+        <div class="slide" data-slide-number="3">
+            <h1>スライド3のタイトル</h1>
+            <p>さらに多くの情報がここに表示されます。</p>
+            <img src="https://via.placeholder.com/300x200?text=Image+Placeholder" alt="Placeholder Image">
+        </div>
+
+        <div class="navigation-buttons">
+            <button id="prev-slide">前へ</button>
+            <button id="next-slide">次へ</button>
+        </div>
+        <button id="download-ppt-button">PowerPointダウンロード</button>
+    </div>
+
+    <div class="input-area">
+        <textarea id="prompt-input" placeholder="スライドのテーマや内容を入力してください..."></textarea>
+        <button id="generate-slide-button">スライドを生成</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script>
+        let currentSlide = 0;
+        const slidesContainer = document.querySelector('.slide-container');
+        let slides = document.querySelectorAll('.slide');
+        let totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+        }
+
+        document.getElementById('next-slide').addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        });
+
+        document.getElementById('prev-slide').addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        });
+
+        // Initial slide display
+        showSlide(currentSlide);
+
+        document.getElementById('download-ppt-button').addEventListener('click', async () => {
+            const zip = new JSZip();
+            const slideImagesFolder = zip.folder("slides");
+
+            // Re-query slides in case they were dynamically added/removed
+            slides = document.querySelectorAll('.slide');
+            totalSlides = slides.length;
+
+            for (let i = 0; i < totalSlides; i++) {
+                const slideElement = slides[i];
+                // Make the slide active to ensure it's rendered correctly for html2canvas
+                slideElement.classList.add('active');
+                await new Promise(resolve => setTimeout(resolve, 100)); // Small delay for rendering
+
+                const canvas = await html2canvas(slideElement, {
+                    scale: 2, // Increase scale for better quality
+                    useCORS: true, // Enable CORS for images if any
+                    logging: true // Enable logging for debugging
+                });
+                const imgData = canvas.toDataURL('image/png');
+                slideImagesFolder.file(`slide_${i + 1}.png`, imgData.split('base64,')[1], { base64: true });
+
+                // Deactivate the slide after capturing
+                slideElement.classList.remove('active');
+            }
+
+            // Create a simple HTML file to embed images for PPTX conversion (conceptual)
+            // In a real scenario, you'd use a library like 'pptxgenjs' or a backend service
+            const pptxContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Presentation</title>
+                </head>
+                <body>
+                    ${Array.from(slides).map((_, i) => `<img src="slides/slide_${i + 1}.png" style="width:100%; height:auto; display:block; page-break-after:always;">`).join('')}
+                </body>
+                </html>
+            `;
+            zip.file("presentation.html", pptxContent);
+
+            zip.generateAsync({ type: "blob" })
+                .then(function(content) {
+                    saveAs(content, "llm_generated_presentation.zip");
+                });
+        });
+
+        // Placeholder for LLM integration
+        document.getElementById('generate-slide-button').addEventListener('click', async () => {
+            const prompt = document.getElementById('prompt-input').value;
+            if (!prompt) {
+                alert('スライドのテーマを入力してください。');
+                return;
+            }
+            alert(`「${prompt}」に基づいてスライドを生成します。（この機能はまだ実装されていません）`);
+            // ここにLLM連携のロジックを実装します
+            // 例: fetch('/generate-slides', { method: 'POST', body: JSON.stringify({ prompt }) })
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         // data.slides を使ってスライドを動的に追加・更新
+            //         updateSlides(data.slides);
+            //     });
+        });
+
+        function updateSlides(newSlidesData) {
+            // Clear existing slides
+            slides.forEach(slide => slide.remove());
+
+            // Add new slides
+            newSlidesData.forEach((slideData, index) => {
+                const newSlide = document.createElement('div');
+                newSlide.classList.add('slide');
+                newSlide.setAttribute('data-slide-number', index + 1);
+                newSlide.innerHTML = `<h1>${slideData.title}</h1><p>${slideData.content}</p>`;
+                if (slideData.image) {
+                    newSlide.innerHTML += `<img src="${slideData.image}" alt="Slide Image">`;
+                }
+                slidesContainer.insertBefore(newSlide, slidesContainer.querySelector('.navigation-buttons'));
+            });
+
+            // Update slide references and show the first new slide
+            slides = document.querySelectorAll('.slide');
+            totalSlides = slides.length;
+            currentSlide = 0;
+            showSlide(currentSlide);
+        }
+    </script>
+</body>
+</html>

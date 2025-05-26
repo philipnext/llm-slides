@@ -1,0 +1,101 @@
+/* slide.css */
+
+/* 全体のフォント、背景色、テキスト色 */
+.reveal {
+	font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+	background-color: #f0f2f5; /* 明るいグレーの背景 */
+	color: #333; /* 濃いグレーのテキスト */
+}
+
+/* スライド全体のリンク色 */
+.reveal a {
+	color: #007bff; /* 青系のリンク色 */
+}
+
+/* タイトルスライドのスタイル */
+.reveal .slides section.title-slide h1 {
+	font-size: 3.5em; /* 大きめのフォントサイズ */
+	color: #0056b3; /* 濃い青系のタイトル色 */
+	text-align: center;
+	margin-top: 15%; /* 上からの配置調整 */
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* 軽い影 */
+}
+
+.reveal .slides section.title-slide p {
+	font-size: 1.2em;
+	text-align: center;
+	color: #555;
+}
+
+/* 各セクションの見出し (h1, h2) のスタイル */
+.reveal h1,
+.reveal h2 {
+	color: #0056b3; /* 濃い青系の見出し色 */
+	text-shadow: none; /* デフォルトの影を無効化 */
+}
+
+.reveal h1 {
+	font-size: 2.5em;
+	border-bottom: 2px solid #007bff; /* 下線 */
+	padding-bottom: 10px;
+	margin-bottom: 30px;
+}
+
+.reveal h2 {
+	font-size: 1.8em;
+	color: #007bff; /* 青系のサブ見出し色 */
+}
+
+/* 通常のテキストのスタイル */
+.reveal p {
+	font-size: 1.1em;
+	line-height: 1.5;
+}
+
+/* リストのスタイル */
+.reveal ul,
+.reveal ol {
+	font-size: 1.1em;
+	line-height: 1.4;
+	margin-left: 1.5em;
+}
+
+.reveal ul li {
+	margin-bottom: 0.5em;
+}
+
+/* コードブロックのスタイル */
+.reveal pre {
+	background-color: #e9ecef; /* 明るいグレーの背景 */
+	border-radius: 5px;
+	padding: 15px;
+	font-size: 0.9em;
+	line-height: 1.3;
+	overflow: auto;
+}
+
+.reveal code {
+	font-family: "Fira Code", "Consolas", "Monaco", monospace;
+	color: #d63384; /* ピンク系のコード色 */
+}
+
+/* フッターやスライド番号のスタイル (もしあれば) */
+.reveal .slide-number {
+	color: #888;
+	font-size: 0.8em;
+}
+
+/* その他の調整 */
+.reveal section img {
+	border: none;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* reveal.js のデフォルトテーマを上書きするための追加スタイル */
+.reveal .controls-arrow {
+	color: #007bff; /* ナビゲーション矢印の色 */
+}
+
+.reveal .progress span {
+	background: #007bff; /* プログレスバーの色 */
+}
